@@ -1,0 +1,45 @@
+﻿<Window x:Class="ScreenshotWrapperWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScreenshotWrapperWPF" Name="mainWindow"
+        xmlns:ctx="clr-namespace:ScreenshotWrapperWPF.ViewModels"
+        mc:Ignorable="d" Title="Main Window" Height="350" Width="525">
+    <Window.Resources>
+        <ctx:MainVM x:Key="MainDC"/>
+    </Window.Resources>
+    <TabControl DataContext="{Binding Source={StaticResource MainDC}, Path=Instance}">
+        <TabItem Header="Output" FontFamily="Calibri" FontSize="14">
+            <GroupBox Header="Preffered Output File Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Storage Location: " Grid.Row="0" Grid.Column="0" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Text="{Binding StorageLocationFilename}" Grid.Row="0" Grid.Column="1" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
+                    <Button Command="{Binding SelectFolderCommand}" CommandParameter="{Binding}" Content="..." Grid.Row="0" Grid.Column="2" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="25" />
+                </Grid>
+            </GroupBox>
+        </TabItem>
+        <TabItem Header="Destination" FontFamily="Calibri" FontSize="14">
+            <GroupBox Header="Destination">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <RadioButton IsChecked="{Binding IsSaveAsRadioChecked}" Grid.Row="0" Margin="5" Content="Save as (displaying dialog)" />
+                    <RadioButton IsChecked="{Binding IsSaveDirectlyRadioChecked}" Grid.Row="1" Margin="5" Content="Save directly (using preffered file output settings)" />
+                </Grid>
+            </GroupBox>
+        </TabItem>
+    </TabControl>
+</Window>
+

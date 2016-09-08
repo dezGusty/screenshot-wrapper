@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ScreenshotWrapperWPF.ResourceDictionaries"
+                    xmlns:ctx="clr-namespace:ScreenshotWrapperWPF.ViewModels"
+                    xmlns:tb="http://www.hardcodet.net/taskbar">
+    <ContextMenu x:Shared="false"  x:Key="systray">
+        <MenuItem Header="Preferences" Command="{Binding ShowWindowCommand}">
+            <MenuItem.Icon>
+                <Image Height="15" Width="15" Source="pack://application:,,,/ScreenshotWrapperWPF;component/Resources/settingsicon.ico" Stretch="UniformToFill"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Take a screenshot" Command="{Binding TakeScreenshotCommand}"/>
+        <Separator />
+        <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}">
+            <MenuItem.Icon>
+                <Image Height="15" Width="15" Source="pack://application:,,,/ScreenshotWrapperWPF;component/Resources/closeicon.ico" Stretch="UniformToFill"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </ContextMenu>
+
+    <tb:TaskbarIcon x:Key="NotifyIcon"
+                    IconSource="../Resources/systrayicon.ico"
+                    ToolTipText="SScreenshot"
+                    ContextMenu="{StaticResource systray}"
+                    DoubleClickCommand="{Binding ShowWindowCommand}">
+        <tb:TaskbarIcon.DataContext>
+            <ctx:ScreenshotWrapperVM/>
+        </tb:TaskbarIcon.DataContext>
+    </tb:TaskbarIcon>
+</ResourceDictionary>
