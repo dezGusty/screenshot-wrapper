@@ -9,7 +9,7 @@
                 <Image Height="15" Width="15" Source="pack://application:,,,/ScreenshotWrapperWPF;component/Resources/settingsicon.ico" Stretch="UniformToFill"/>
             </MenuItem.Icon>
         </MenuItem>
-        <MenuItem Header="Take a screenshot" Command="{Binding TakeScreenshotCommand}"/>
+        <MenuItem Header="Take a screenshot" Command="{Binding TakeScreenshotCommand}" CommandParameter="{Binding}"/>
         <Separator />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}">
             <MenuItem.Icon>
@@ -18,7 +18,7 @@
         </MenuItem>
     </ContextMenu>
 
-    <tb:TaskbarIcon x:Key="NotifyIcon"
+    <tb:TaskbarIcon x:Key="NotifyIcon" x:Name="tbIcon"
                     IconSource="../Resources/systrayicon.ico"
                     ToolTipText="SScreenshot"
                     ContextMenu="{StaticResource systray}"

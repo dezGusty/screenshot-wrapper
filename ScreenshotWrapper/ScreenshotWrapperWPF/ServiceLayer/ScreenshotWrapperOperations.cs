@@ -1,6 +1,8 @@
-﻿using ScreenshotWrapperWPF.Configuration;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using ScreenshotWrapperWPF.Configuration;
 using ScreenshotWrapperWPF.ViewModels;
 using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -53,17 +55,19 @@ namespace ScreenshotWrapperWPF.ServiceLayer
 
         public void TakeScreenshot(object param)
         {
+            TaskbarIcon tb = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
             try
             {
                 string shortDate = DateTime.Now.ToShortDateString().Replace('.', '-');
                 string longTime = DateTime.Now.ToLongTimeString().Replace(':', '_');
-                string filename = string.Format("{0}-{1}.bmp", shortDate, longTime);
+                string filename = string.Format("{0}-{1}.png", shortDate, longTime);
                 string path = this.config.OutputPath + filename;
                 getAllDesktopsScreenshot(path);
+                tb.ShowBalloonTip("Screenshot saved!", string.Format("Location: {0}", path), BalloonIcon.Info);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
     }

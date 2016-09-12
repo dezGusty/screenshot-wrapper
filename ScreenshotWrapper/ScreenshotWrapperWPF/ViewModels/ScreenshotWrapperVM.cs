@@ -9,7 +9,7 @@ namespace ScreenshotWrapperWPF.ViewModels
     {
         public ScreenshotWrapperVM()
         {
-            
+
         }
 
         private ICommand showWindowCommand;

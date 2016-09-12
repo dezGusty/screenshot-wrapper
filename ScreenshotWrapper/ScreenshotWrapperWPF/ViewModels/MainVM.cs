@@ -17,6 +17,16 @@ namespace ScreenshotWrapperWPF.ViewModels
         {
             this.config = SSWConfig.Instance;
             this.StorageLocationFilename = config.OutputPath;
+            if (this.config.IsSavedDirectly == true)
+            {
+                this.IsSaveDirectlyRadioChecked = true;
+                this.IsSaveAsRadioChecked = false;
+            }
+            else
+            {
+                this.IsSaveDirectlyRadioChecked = false;
+                this.IsSaveAsRadioChecked = true;
+            }
         }
 
         private static MainVM instance;

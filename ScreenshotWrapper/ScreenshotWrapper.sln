@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenshotWrapperWPF", "ScreenshotWrapperWPF\ScreenshotWrapperWPF.csproj", "{D430619E-932E-4A4C-89FA-2E4ABF166E3B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B49ACB9C-C054-4BEF-973C-B8D1DAE058AC} = {B49ACB9C-C054-4BEF-973C-B8D1DAE058AC}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenshotWrapperDLL", "ScreenshotWrapperDLL\ScreenshotWrapperDLL.vcxproj", "{B49ACB9C-C054-4BEF-973C-B8D1DAE058AC}"
 EndProject
