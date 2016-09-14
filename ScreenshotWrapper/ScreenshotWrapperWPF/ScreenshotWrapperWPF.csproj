@@ -81,7 +81,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogicLayer\JSONOperations.cs" />
+    <Compile Include="BusinessLogicLayer\SSWHelper.cs" />
     <Compile Include="Configuration\SSWConfig.cs" />
+    <Compile Include="Exceptions\SSWConfigException.cs" />
     <Compile Include="ServiceLayer\MainOperations.cs" />
     <Compile Include="ServiceLayer\ScreenshotWrapperOperations.cs" />
     <Compile Include="ViewModels\BasePropertyChanged.cs" />

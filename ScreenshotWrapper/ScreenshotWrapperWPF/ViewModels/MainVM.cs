@@ -19,13 +19,20 @@ namespace ScreenshotWrapperWPF.ViewModels
             this.StorageLocationFilename = config.OutputPath;
             if (this.config.IsSavedDirectly == true)
             {
-                this.IsSaveDirectlyRadioChecked = true;
-                this.IsSaveAsRadioChecked = false;
+                this.IsSaveDirectlyEnabled = true;
             }
             else
             {
-                this.IsSaveDirectlyRadioChecked = false;
-                this.IsSaveAsRadioChecked = true;
+                this.IsSaveAsEnabled = true;
+            }
+
+            if (this.config.IsUsingDateFormat == true)
+            {
+                this.IsDateEnabled = true;
+            }
+            else
+            {
+                this.IsCountEnabled = true;
             }
         }
 
@@ -45,33 +52,63 @@ namespace ScreenshotWrapperWPF.ViewModels
             }
         }
 
-        private bool isSaveAsRadioChecked;
+        private bool isSaveAsEnabled;
 
-        public bool IsSaveAsRadioChecked
+        public bool IsSaveAsEnabled
         {
             get
             {
-                return this.isSaveAsRadioChecked;
+                return this.isSaveAsEnabled;
             }
             set
             {
-                this.isSaveAsRadioChecked = value;
-                NotifyPropertyChanged("IsSaveAsRadioChecked");
+                this.isSaveAsEnabled = value;
+                NotifyPropertyChanged("IsSaveAsEnabled");
             }
         }
 
-        private bool isSaveDirectlyRadioChecked;
+        private bool isSaveDirectlyEnabled;
 
-        public bool IsSaveDirectlyRadioChecked
+        public bool IsSaveDirectlyEnabled
         {
             get
             {
-                return this.isSaveDirectlyRadioChecked;
+                return this.isSaveDirectlyEnabled;
             }
             set
             {
-                this.isSaveDirectlyRadioChecked = value;
-                NotifyPropertyChanged("IsSaveDirectlyRadioChecked");
+                this.isSaveDirectlyEnabled = value;
+                NotifyPropertyChanged("IsSaveDirectlyEnabled");
+            }
+        }
+
+        private bool isDateEnabled;
+
+        public bool IsDateEnabled
+        {
+            get
+            {
+                return this.isDateEnabled;
+            }
+            set
+            {
+                this.isDateEnabled = value;
+                NotifyPropertyChanged("IsDateEnabled");
+            }
+        }
+
+        private bool isCountEnabled;
+
+        public bool IsCountEnabled
+        {
+            get
+            {
+                return this.isCountEnabled;
+            }
+            set
+            {
+                this.isCountEnabled = value;
+                NotifyPropertyChanged("IsCountEnabled");
             }
         }
 
@@ -103,6 +140,38 @@ namespace ScreenshotWrapperWPF.ViewModels
                 }
 
                 return this.selectFolderCommand;
+            }
+        }
+
+        private ICommand saveOutputOptionCommand;
+
+        public ICommand SaveOutputOptionCommand
+        {
+            get
+            {
+                if (this.saveOutputOptionCommand == null)
+                {
+                    MainOperations operation = new MainOperations(this);
+                    this.saveOutputOptionCommand = new RelayCommand(operation.SaveOutputOption);
+                }
+
+                return this.saveOutputOptionCommand;
+            }
+        }
+
+        private ICommand saveFilenameCommand;
+
+        public ICommand SaveFilenameCommand
+        {
+            get
+            {
+                if (this.saveFilenameCommand == null)
+                {
+                    MainOperations operation = new MainOperations(this);
+                    this.saveFilenameCommand = new RelayCommand(operation.SaveFilenameOption);
+                }
+
+                return this.saveFilenameCommand;
             }
         }
     }

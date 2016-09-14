@@ -11,22 +11,42 @@
     </Window.Resources>
     <TabControl DataContext="{Binding Source={StaticResource MainDC}, Path=Instance}">
         <TabItem Header="Output" FontFamily="Calibri" FontSize="14">
-            <GroupBox Header="Preffered Output File Settings">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Storage Location: " Grid.Row="0" Grid.Column="0" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                    <TextBox Text="{Binding StorageLocationFilename}" Grid.Row="0" Grid.Column="1" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
-                    <Button Command="{Binding SelectFolderCommand}" CommandParameter="{Binding}" Content="..." Grid.Row="0" Grid.Column="2" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="25" />
-                </Grid>
-            </GroupBox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Preffered Output File Settings" Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Storage Location: " Grid.Row="0" Grid.Column="0" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding StorageLocationFilename}" Grid.Row="0" Grid.Column="1" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"/>
+                        <Button Command="{Binding SelectFolderCommand}" CommandParameter="{Binding}" Content="..." Grid.Row="0" Grid.Column="2" FontFamily="Calibri" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="25" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Filename configuration" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Name="rbDateFormat" IsChecked="{Binding IsDateEnabled}" Grid.Row="0" Margin="5" Content="Use Date Format" />
+                        <RadioButton Name="rbCountFormat" IsChecked="{Binding IsCountEnabled}" Grid.Row="1" Margin="5" Content="Use Counter Format" />
+                        <Button Command="{Binding SaveFilenameCommand}" Content="Save Changes" Grid.RowSpan="2" Grid.Column="2" Margin="5" Padding="5" Height="40" Width="125" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </TabItem>
         <TabItem Header="Destination" FontFamily="Calibri" FontSize="14">
             <GroupBox Header="Destination">
@@ -34,9 +54,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <RadioButton IsChecked="{Binding IsSaveAsRadioChecked}" Grid.Row="0" Margin="5" Content="Save as (displaying dialog)" />
-                    <RadioButton IsChecked="{Binding IsSaveDirectlyRadioChecked}" Grid.Row="1" Margin="5" Content="Save directly (using preffered file output settings)" />
+                    <RadioButton Name="rbIsSaveAs" IsChecked="{Binding IsSaveAsEnabled}" Grid.Row="0" Margin="5" Content="Save as (displaying dialog)" />
+                    <RadioButton Name="rbIsSavedDirectly" IsChecked="{Binding IsSaveDirectlyEnabled}" Grid.Row="1" Margin="5" Content="Save directly (using preffered file output settings)" />
+                    <Button Command="{Binding SaveOutputOptionCommand}" Content="Save Changes" Grid.Row="2" Margin="5" Padding="5" Height="40" Width="125" VerticalAlignment="Center" HorizontalAlignment="Left" />
                 </Grid>
             </GroupBox>
         </TabItem>

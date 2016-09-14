@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ScreenshotWrapperWPF.BusinessLogicLayer;
 
 namespace ScreenshotWrapperWPF.ServiceLayer
 {
@@ -24,11 +25,13 @@ namespace ScreenshotWrapperWPF.ServiceLayer
 
         private ScreenshotWrapperVM model;
         private SSWConfig config;
+        private SSWHelper helper;
 
         public ScreenshotWrapperOperations(ScreenshotWrapperVM model)
         {
             this.model = model;
             this.config = SSWConfig.Instance;
+            this.helper = new SSWHelper();
         }
 
         public void ShowWindow(object param)
@@ -58,10 +61,17 @@ namespace ScreenshotWrapperWPF.ServiceLayer
             TaskbarIcon tb = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
             try
             {
-                string shortDate = DateTime.Now.ToShortDateString().Replace('.', '-');
-                string longTime = DateTime.Now.ToLongTimeString().Replace(':', '_');
-                string filename = string.Format("{0}-{1}.png", shortDate, longTime);
-                string path = this.config.OutputPath + filename;
+                string path = string.Empty;
+                if (this.config.IsUsingDateFormat == true)
+                {
+                    path = this.helper.MakeDateFilename();
+                }
+                else
+                {
+                    path = this.helper.MakeCountFilename();
+                    this.config.NumberOfScreenshots++;
+                }
+
                 getAllDesktopsScreenshot(path);
                 tb.ShowBalloonTip("Screenshot saved!", string.Format("Location: {0}", path), BalloonIcon.Info);
             }

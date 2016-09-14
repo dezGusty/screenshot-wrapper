@@ -34,7 +34,6 @@ namespace ScreenshotWrapperWPF.Configuration
 
         private string outputPath;
 
-        [XmlElement("OutputPath")]
         public string OutputPath
         {
             get
@@ -49,7 +48,6 @@ namespace ScreenshotWrapperWPF.Configuration
 
         private int numberOfScreenshots;
 
-        [XmlElement("NumberOfScreenshots")]
         public int NumberOfScreenshots
         {
             get
@@ -73,6 +71,20 @@ namespace ScreenshotWrapperWPF.Configuration
             set
             {
                 this.isSavedDirectly = value;
+            }
+        }
+
+        private bool isUsingDateFormat;
+
+        public bool IsUsingDateFormat
+        {
+            get
+            {
+                return this.isUsingDateFormat;
+            }
+            set
+            {
+                this.isUsingDateFormat = value;
             }
         }
     }

@@ -2,11 +2,11 @@
 using ScreenshotWrapperWPF.Configuration;
 using ScreenshotWrapperWPF.ViewModels;
 using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ScreenshotWrapperWPF.ServiceLayer
 {
@@ -25,10 +25,10 @@ namespace ScreenshotWrapperWPF.ServiceLayer
         {
             if (param != null)
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
                 try
                 {
-                    DialogResult result = fbd.ShowDialog();
+                    System.Windows.Forms.DialogResult result = fbd.ShowDialog();
                     if (string.Compare(fbd.SelectedPath, string.Empty) != 0)
                     {
                         model.StorageLocationFilename = JSONOperations.SlashToBackslash(fbd.SelectedPath);
@@ -41,6 +41,38 @@ namespace ScreenshotWrapperWPF.ServiceLayer
                     return;
                 }
             }
+        }
+
+        internal void SaveOutputOption(object param)
+        {
+            if (MainVM.Instance.IsSaveAsEnabled == true)
+            {
+                this.config.IsSavedDirectly = false;
+            }
+            else
+            {
+                this.config.IsSavedDirectly = true;
+            }
+
+            JSONOperations.Serialize(this.config);
+            MessageBox.Show("Changes saved!", "Success", MessageBoxButton.OKCancel, MessageBoxImage.Information,
+                MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        }
+
+        internal void SaveFilenameOption(object param)
+        {
+            if (MainVM.Instance.IsDateEnabled == true)
+            {
+                this.config.IsUsingDateFormat = true;
+            }
+            else
+            {
+                this.config.IsUsingDateFormat = false;
+            }
+
+            JSONOperations.Serialize(this.config);
+            MessageBox.Show("Changes saved!", "Success", MessageBoxButton.OKCancel, MessageBoxImage.Information, 
+                MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
         }
     }
 }
