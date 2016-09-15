@@ -89,6 +89,9 @@
     <Compile Include="ViewModels\BasePropertyChanged.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\ScreenshotWrapperVM.cs" />
+    <Compile Include="Views\ToolWindow.xaml.cs">
+      <DependentUpon>ToolWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +106,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceDictionaries\ScreenshotWrapperRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
