@@ -62,10 +62,10 @@ namespace ScreenshotWrapperWPF.ServiceLayer
 
         public void TakeScreenshot(object param)
         {
-            try
+            TaskbarIcon tb = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
+            string path = string.Empty;
+            if (this.config.IsCaptureEnabled == false)
             {
-                TaskbarIcon tb = (TaskbarIcon)Application.Current.FindResource("NotifyIcon");
-                string path = string.Empty;
                 if (this.config.IsSavedDirectly == true)
                 {
                     if (this.config.IsUsingDateFormat == true)
@@ -78,28 +78,54 @@ namespace ScreenshotWrapperWPF.ServiceLayer
                         this.config.NumberOfScreenshots++;
                         JSONOperations.Serialize(this.config);
                     }
+
+                    try
+                    {
+                        getAllDesktopsScreenshot(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    }
                 }
                 else
                 {
-                    SaveFileDialog sfd = new SaveFileDialog();
-                    sfd.Filter = "PNG File (*.png)|*.png";
-                    sfd.InitialDirectory = Path.GetFullPath(this.config.OutputPath);
-                    sfd.DefaultExt = ".png";
+                    path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    path = path + "\\temp.png";
+                    try
+                    {
+                        getAllDesktopsScreenshot(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    }
+
+                    SaveFileDialog sfd = this.helper.CreateSaveFileDialog("PNG File (*.png)|*.png", Path.GetFullPath(this.config.OutputPath), ".png");
                     ToolWindow tw = new ToolWindow();
                     tw.Show();
                     sfd.ShowDialog(tw);
-                    path = sfd.FileName;
                     tw.Close();
-                    Thread.Sleep(200);
-                }
+                    try
+                    {
+                        File.Move(path, sfd.FileName);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Write the output!", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        return;
+                    }
 
-                getAllDesktopsScreenshot(path);
-                tb.ShowBalloonTip("Screenshot saved!", string.Format("Location: {0}", path), BalloonIcon.Info);
+                    path = sfd.FileName;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                CaptureWindow cw = new CaptureWindow();
+                cw.Show();
             }
+
+            tb.ShowBalloonTip("Screenshot saved!", string.Format("Location: {0}", path), BalloonIcon.Info);
         }
     }
 }

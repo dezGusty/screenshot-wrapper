@@ -87,5 +87,19 @@ namespace ScreenshotWrapperWPF.Configuration
                 this.isUsingDateFormat = value;
             }
         }
+
+        private bool isCaptureEnabled;
+
+        public bool IsCaptureEnabled
+        {
+            get
+            {
+                return this.isCaptureEnabled;
+            }
+            set
+            {
+                this.isCaptureEnabled = value;
+            }
+        }
     }
 }

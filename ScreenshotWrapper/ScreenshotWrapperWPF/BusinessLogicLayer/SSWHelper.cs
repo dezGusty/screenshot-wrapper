@@ -1,6 +1,8 @@
-﻿using ScreenshotWrapperWPF.Configuration;
+﻿using Microsoft.Win32;
+using ScreenshotWrapperWPF.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,16 @@ namespace ScreenshotWrapperWPF.BusinessLogicLayer
         internal string MakeCountFilename()
         {
             return this.config.OutputPath + string.Format("[{0}].png", this.config.NumberOfScreenshots);
+        }
+
+        internal SaveFileDialog CreateSaveFileDialog(string filter, string initialDirectory, string defaultExt)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = filter;
+            sfd.InitialDirectory = initialDirectory;
+            sfd.DefaultExt = defaultExt;
+
+            return sfd;
         }
     }
 }

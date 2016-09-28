@@ -74,5 +74,19 @@ namespace ScreenshotWrapperWPF.ServiceLayer
             MessageBox.Show("Changes saved!", "Success", MessageBoxButton.OKCancel, MessageBoxImage.Information, 
                 MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
         }
+
+        internal void SaveCaptureRegionOption(object param)
+        {
+            if (MainVM.Instance.IsCaptureEnabled == true)
+            {
+                this.config.IsCaptureEnabled = true;
+            }
+            else
+            {
+                this.config.IsCaptureEnabled = false;
+            }
+
+            JSONOperations.Serialize(this.config);
+        }
     }
 }

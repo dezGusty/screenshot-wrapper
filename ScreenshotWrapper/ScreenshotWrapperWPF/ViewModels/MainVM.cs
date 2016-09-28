@@ -52,6 +52,21 @@ namespace ScreenshotWrapperWPF.ViewModels
             }
         }
 
+        private bool isCaptureEnabled;
+
+        public bool IsCaptureEnabled
+        {
+            get
+            {
+                return this.isCaptureEnabled;
+            }
+            set
+            {
+                this.isCaptureEnabled = value;
+                NotifyPropertyChanged("IsCaptureEnabled");
+            }
+        }
+
         private bool isSaveAsEnabled;
 
         public bool IsSaveAsEnabled
@@ -172,6 +187,22 @@ namespace ScreenshotWrapperWPF.ViewModels
                 }
 
                 return this.saveFilenameCommand;
+            }
+        }
+
+        private ICommand captureRegionCheckCommand;
+
+        public ICommand CaptureRegionCheckCommand
+        {
+            get
+            {
+                if (this.captureRegionCheckCommand == null)
+                {
+                    MainOperations operation = new MainOperations(this);
+                    this.captureRegionCheckCommand = new RelayCommand(operation.SaveCaptureRegionOption);
+                }
+
+                return this.captureRegionCheckCommand;
             }
         }
     }

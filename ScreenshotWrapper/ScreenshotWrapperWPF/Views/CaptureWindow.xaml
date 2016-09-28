@@ -1,0 +1,22 @@
+﻿<Window x:Class="ScreenshotWrapperWPF.Views.CaptureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScreenshotWrapperWPF.Views"
+        xmlns:ctx="clr-namespace:ScreenshotWrapperWPF.ViewModels"
+        mc:Ignorable="d" WindowStyle="None" Background="Gray" Opacity="0.5" AllowsTransparency="True"
+        Title="CaptureWindow" WindowState="Maximized"
+        MinHeight="{Binding Path=Height, Mode=TwoWay}" 
+        MinWidth="{Binding Path=Width, Mode=TwoWay}"
+        MaxHeight="{Binding Path=Height, Mode=TwoWay}" 
+        MaxWidth="{Binding Path=Width, Mode=TwoWay}"
+        Height="{Binding Path=Height, Mode=TwoWay}" 
+        Width="{Binding Path=Width, Mode=TwoWay}">
+    <Window.DataContext>
+        <ctx:CaptureVM/>
+    </Window.DataContext>
+    <Grid>
+        
+    </Grid>
+</Window>
